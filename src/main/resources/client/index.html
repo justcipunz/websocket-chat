@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HW5 Chat Client</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main class="page">
+    <h1>HW5 Chat Client</h1>
+
+    <section class="panel" aria-label="Подключение">
+        <label for="name-input">Имя пользователя</label>
+        <input id="name-input" type="text" autocomplete="off">
+
+        <div class="row">
+            <button id="pick-icon-btn" type="button">Выбрать иконку</button>
+            <span id="icon-file-name">Файл не выбран</span>
+        </div>
+        <input id="icon-file-input" type="file" accept="image/png,image/jpeg" hidden>
+
+        <button id="join-btn" type="button">Присоединиться</button>
+
+        <p id="connection-status">Не подключено</p>
+        <p id="error-text" class="error"></p>
+    </section>
+
+    <section class="panel" aria-label="Чат">
+        <div id="messages" class="messages" aria-live="polite"></div>
+
+        <label for="message-input">Сообщение</label>
+        <input id="message-input" type="text" autocomplete="off">
+
+        <div class="row">
+            <button id="pick-image-btn" type="button">Прикрепить изображение</button>
+            <span id="message-image-file-name">Файл не выбран</span>
+        </div>
+        <input id="message-image-file-input" type="file" accept="image/png,image/jpeg" hidden>
+
+        <button id="send-btn" type="button">Отправить</button>
+    </section>
+
+    <section id="last-image-block" class="panel" aria-label="Последнее видимое изображение">
+        <h2>Последнее видимое изображение</h2>
+        <div id="last-image-container"></div>
+    </section>
+</main>
+<script src="./protobuf/protobuf.min.js"></script>
+<script src="./protobuf/chat_pb.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>

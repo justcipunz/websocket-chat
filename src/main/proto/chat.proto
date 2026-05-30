@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package hw5.chat;
+
+option java_package = "ru.hse.hw5.proto";
+option java_outer_classname = "ChatProtocol";
+
+message ClientRequest {
+  oneof payload {
+    JoinRequest join = 1;
+    SendMessageRequest send_message = 2;
+  }
+}
+
+message ServerResponse {
+  oneof payload {
+    JoinSuccess join_success = 1;
+    ChatMessageEvent message_event = 2;
+    ErrorResponse error = 3;
+  }
+}
+
+message JoinRequest {
+  string name = 1;
+  optional ImageData icon = 2;
+}
+
+message SendMessageRequest {
+  string text = 1;
+  optional ImageData image = 2;
+  optional string recipient_name = 3;
+}
+
+message JoinSuccess {
+  string assigned_name = 1;
+  History history = 2;
+  optional ImageData last_image = 3;
+}
+
+message History {
+  repeated ChatMessage messages = 1;
+}
+
+message ChatMessageEvent {
+  ChatMessage message = 1;
+}
+
+message ChatMessage {
+  int64 id = 1;
+  string sender_name = 2;
+  string text = 3;
+  int64 timestamp_epoch_millis = 4;
+  bool private_message = 5;
+  string recipient_name = 6;
+  optional Attachment attachment = 7;
+  optional ImageData sender_icon = 8;
+
+  message Attachment {
+    ImageData image = 1;
+  }
+}
+
+message ImageData {
+  string file_name = 1;
+  string mime_type = 2;
+  bytes data = 3;
+  int32 size_bytes = 4;
+}
+
+message ErrorResponse {
+  int32 code = 1;
+  string error = 2;
+  string message = 3;
+}
